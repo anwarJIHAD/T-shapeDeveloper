@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>The T-Shaped Developer - Pertamina Digital Hub</title>
+
+    <!-- Reveal.js core CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/white.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0076c8; /* Pertamina Blue */
+            --secondary: #ed2939; /* Pertamina Red */
+            --green: #8bc34a; /* Green from graphic */
+            --text-dark: #222222;
+            --text-gray: #555555;
+            --bg-color: #FFFFFF;
+        }
+
+        html, body, .reveal {
+            background-color: var(--bg-color) !important;
+            font-family: 'Poppins', sans-serif !important;
+            color: var(--text-dark) !important;
+        }
+
+        .reveal .slide-background {
+            background-color: transparent !important;
+        }
+
+        /* Top Header Logos */
+        .corporate-header {
+            position: absolute;
+            top: 30px;
+            left: 50px;
+            right: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        
+        .corporate-header img {
+            height: 40px;
+            object-fit: contain;
+        }
+
+        /* Typography */
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+            font-family: 'Poppins', sans-serif !important;
+            font-weight: 600 !important;
+            text-transform: none !important;
+            color: var(--text-dark) !important;
+            letter-spacing: -0.01em !important;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        .reveal h1 { font-size: 3.2rem !important; line-height: 1.2 !important; }
+        .reveal h2 { font-size: 2.2rem !important; line-height: 1.2 !important; color: var(--primary) !important; }
+        .reveal h3 { font-size: 1.5rem !important; }
+        
+        .reveal p, .reveal li {
+            font-family: 'Poppins', sans-serif !important;
+            font-size: 1.15rem !important;
+            line-height: 1.5 !important;
+            color: var(--text-gray) !important;
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        .reveal strong {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Slide Layouts */
+        .slide-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            text-align: left;
+            padding: 95px 40px 10px 40px;
+            box-sizing: border-box;
+        }
+
+        .cover-slide {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-left: 50px;
+        }
+
+        .cover-graphic {
+            position: absolute;
+            right: -5%;
+            top: 10%;
+            height: 90vh;
+            z-index: -1;
+            opacity: 0.9;
+        }
+
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .layout-grid-uneven {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 30px;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        /* Lists */
+        .reveal ul {
+            list-style: none;
+            padding-left: 0;
+            margin-left: 0;
+        }
+        
+        .reveal ul li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 15px;
+        }
+        
+        .reveal ul li::before {
+            content: "■";
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--primary);
+            font-size: 0.8em;
+        }
+
+        /* Custom UI Elements */
+        .highlight-box {
+            background-color: rgba(0, 118, 200, 0.05);
+            border-left: 5px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 15px 0;
+        }
+        
+        .alert-box {
+            background-color: rgba(237, 41, 57, 0.05);
+            border-left: 5px solid var(--secondary);
+            padding: 15px 20px;
+            border-radius: 0 10px 10px 0;
+            margin: 15px 0;
+        }
+
+        .img-modern {
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+        }
+
+        /* Journey Cards */
+        .journey-wrapper { margin-top: 15px; padding: 10px 0; width: 100%; }
+        .journey-cards { display: flex; gap: 15px; width: 100%; justify-content: center; }
+        .j-card {
+            background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            width: 175px; display: flex; flex-direction: column; overflow: hidden;
+            border: 1px solid #eee; transition: transform 0.3s ease;
+        }
+        .j-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+        .j-card-img { height: 110px; width: 100%; object-fit: cover; background-color: #f0f0f0; }
+        .j-card-content { padding: 12px; display: flex; flex-direction: column; gap: 5px; }
+        .j-card-phase { font-size: 0.75rem !important; font-weight: 700 !important; color: var(--primary) !important; margin: 0 !important; }
+        .j-card-title { font-size: 0.95rem !important; font-weight: 600 !important; color: #222 !important; margin: 0 !important; line-height: 1.2 !important; }
+        .j-card-desc { font-size: 0.8rem !important; color: #666 !important; margin: 0 !important; line-height: 1.3 !important; margin-top: 5px !important; }
+        .j-card-now { background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); border: 1px solid #80deea; justify-content: center; align-items: center; text-align: center; }
+        .j-card-now .j-card-content { padding: 15px; align-items: center; justify-content: center; height: 100%; }
+
+        /* Code & Prompt Styling */
+        .prompt-box {
+            background-color: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Fira Code', monospace !important;
+            font-size: 0.95rem !important;
+            line-height: 1.4 !important;
+            color: #333 !important;
+            margin-bottom: 10px;
+        }
+        .prompt-bad { border-top: 4px solid var(--secondary); }
+        .prompt-good { border-top: 4px solid var(--primary); }
+
+        .create-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .create-item {
+            background: #fff;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .create-item h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.4rem !important;
+            color: var(--primary) !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .create-item h3 span { font-weight: 400; font-size: 1rem !important; color: #777 !important; }
+        .create-item p { margin: 0; font-size: 0.9rem !important; line-height: 1.3 !important; }
+
+        /* Clean Table */
+        .table-corporate { width: 100%; border-collapse: collapse; margin-top: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; }
+        .table-corporate th { background-color: var(--primary); color: white !important; font-weight: 500; padding: 12px 20px; text-align: left; font-size: 1.1rem; }
+        .table-corporate td { background-color: #f9f9f9; padding: 15px 20px; border-bottom: 1px solid #eeeeee; font-size: 1.1rem; }
+        .table-corporate tr:last-child td { border-bottom: none; }
+    </style>
+</head>
+<body>
+    
+    <!-- Permanent Header (Logos) -->
+    <div class="corporate-header">
+        <img src="assets/logo danantara.png" alt="Danantara Indonesia">
+        <img src="assets/logo pertamina digital hub.png" alt="Pertamina Digital Hub">
+    </div>
+
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- Cover -->
+            <section>
+                <div class="cover-slide">
+                    <img src="assets/logo iedcc.png" class="cover-graphic" alt="Graphic Element">
+                    <div style="max-width: 65%;">
+                        <h1 style="color: #111 !important; margin-bottom: 5px;">The T-Shaped Developer</h1>
+                        <h2 style="font-size: 1.7rem !important; color: var(--text-gray) !important; font-weight: 400 !important; margin-bottom: 40px;">
+                            Kenapa Spesialisasi Saja Tidak Cukup di Era AI
+                        </h2>
+                        <p style="font-weight: 500 !important; color: #111 !important; margin-bottom: 20px;">
+                            MHD. Anwar - Fullstack Developer
+                        </p>
+                        <p style="font-size: 1.1rem !important; color: var(--text-gray) !important;">
+                            Pertamina Digital Hub
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 1 (Sesuai MD): Hook -->
+            <section>
+                <div class="slide-container" style="align-items: center; justify-content: center;">
+                    <div style="max-width: 900px; text-align: center;">
+                        <h1 style="font-size: 3.2rem !important; color: var(--primary) !important; line-height: 1.4 !important;">
+                            "Kalau besok AI bisa menulis semua baris kode pekerjaan Anda...
+                        </h1>
+                        <h2 style="margin-top: 30px; font-size: 2.2rem !important; color: var(--text-dark) !important; text-align: center;">
+                            skill apa yang masih membuat Anda berharga?"
+                        </h2>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 2 (Sesuai MD): Profil Diri & Journey -->
+            <section>
+                <div class="slide-container" style="align-items: center; text-align: center;">
+                    <h2 style="text-align: center; margin-bottom: 0;">My Transformation Journey</h2>
+                    <p style="text-align: center; margin-top: 0; font-size: 1.05rem !important;">Dari Ladang ke Kode: Bukti Nyata Growth Mindset</p>
+                    
+                    <div class="journey-wrapper">
+                        <div class="journey-cards">
+                            <div class="j-card fragment" data-fragment-index="1">
+                                <img src="assets/petani.png" class="j-card-img" alt="Humble Beginning">
+                                <div class="j-card-content">
+                                    <p class="j-card-phase">BEFORE</p>
+                                    <p class="j-card-title">Humble Beginning</p>
+                                    <p class="j-card-desc">Bekerja di ladang dengan mimpi besar</p>
+                                </div>
+                            </div>
+                            <div class="j-card fragment" data-fragment-index="2">
+                                <img src="assets/coding.jpeg" class="j-card-img" alt="Learning Phase">
+                                <div class="j-card-content">
+                                    <p class="j-card-phase">PROCESS</p>
+                                    <p class="j-card-title">Learning Phase</p>
+                                    <p class="j-card-desc">Konsisten belajar coding & teknologi</p>
+                                </div>
+                            </div>
+                            <div class="j-card fragment" data-fragment-index="3">
+                                <img src="assets/improve.JPG" class="j-card-img" alt="Skill Building">
+                                <div class="j-card-content">
+                                    <p class="j-card-phase">PROCESS</p>
+                                    <p class="j-card-title">Skill Building</p>
+                                    <p class="j-card-desc">Mengikuti workshop & sertifikasi</p>
+                                </div>
+                            </div>
+                            <div class="j-card fragment" data-fragment-index="4">
+                                <img src="assets/mc.png" class="j-card-img" alt="Leadership">
+                                <div class="j-card-content">
+                                    <p class="j-card-phase">PROCESS</p>
+                                    <p class="j-card-title">Leadership</p>
+                                    <p class="j-card-desc">Memimpin & membimbing orang lain</p>
+                                </div>
+                            </div>
+                            <div class="j-card fragment" data-fragment-index="5">
+                                <img src="assets/presen.jpg" class="j-card-img" alt="Knowledge Sharing">
+                                <div class="j-card-content">
+                                    <p class="j-card-phase">GROWTH</p>
+                                    <p class="j-card-title">Knowledge Sharing</p>
+                                    <p class="j-card-desc">Berbagi ilmu melalui presentasi</p>
+                                </div>
+                            </div>
+                            <div class="j-card j-card-now fragment" data-fragment-index="6">
+                                <div class="j-card-content">
+                                    <div style="font-size: 2.5rem; margin-bottom: 5px;">🚀</div>
+                                    <p class="j-card-phase" style="color: #00838f !important;">NOW</p>
+                                    <p class="j-card-title" style="color: #006064 !important; font-size: 1.05rem !important; margin-bottom: 5px !important;">Professional Achievement</p>
+                                    <p class="j-card-desc" style="color: #00838f !important; font-weight: 500 !important;">
+                                        <strong>Fullstack Developer</strong><br>Pertamina Digital Hub
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 4 (Sesuai MD): Konteks & Masalah -->
+            <section>
+                <div class="slide-container">
+                    <div class="layout-grid-uneven">
+                        <div>
+                            <h2>Tantangan Klasik Enterprise IT</h2>
+                            <p>Fenomena <strong>"The Silo Effect"</strong> di tim besar:</p>
+                            <ul>
+                                <li class="fragment"><strong>Data Engineer:</strong> Fokus optimasi *pipeline*.</li>
+                                <li class="fragment"><strong>Data Scientist:</strong> Fokus akurasi model ML.</li>
+                                <li class="fragment"><strong>Fullstack Dev:</strong> Fokus UI/API *performance*.</li>
+                            </ul>
+                            <div class="alert-box fragment">
+                                Spesialisasi yang terlalu dalam melahirkan <strong>Friction (Gesekan) integrasi</strong>, keterlambatan rilis, dan miskomunikasi bisnis.
+                            </div>
+                        </div>
+                        <div class="fragment">
+                            <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; text-align: center; border: 1px solid #eaeaea; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+                                <h3 style="color: var(--secondary) !important; text-align: center;">Analogi Pabrik Mobil</h3>
+                                <p style="text-align: center; font-size: 1rem !important; margin-top: 15px;">Tim A merakit mesin V8 tercepat.</p>
+                                <p style="text-align: center; font-size: 1rem !important;">Tim B merakit ban aerodinamis.</p>
+                                <hr style="border-color: #ddd; margin: 15px 0;">
+                                <p style="text-align: center; font-size: 1rem !important; color: var(--secondary) !important; font-weight: 500;">Tanpa kolaborasi, tidak ada yang tahu cara menyambungkan ban ke mesin.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5 (Sesuai MD): T-Shaped Concept -->
+            <section>
+                <div class="slide-container">
+                    <div class="layout-grid-uneven">
+                        <div>
+                            <h2>Solusi: T-Shaped Developer</h2>
+                            <p>Konsep talenta yang menjadi kolaborator efisien.</p>
+                            <ul>
+                                <li class="fragment">
+                                    <strong>Garis Vertikal (Depth):</strong><br>
+                                    Spesialisasi teknis utama Anda (Deep Expertise).
+                                </li>
+                                <li class="fragment">
+                                    <strong>Garis Horizontal (Breadth):</strong><br>
+                                    Komunikasi lintas disiplin, pemahaman bisnis, dan empati pada tim lain.
+                                </li>
+                            </ul>
+                            <div class="highlight-box fragment">
+                                T-Shaped Developer tidak asyik sendiri; mereka memastikan karya mereka relevan dengan tujuan besar perusahaan.
+                            </div>
+                        </div>
+                        <div>
+                            <img src="assets/t_shaped.png" class="img-modern" alt="T-Shape Concept">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6 (Sesuai MD): Era AI -->
+            <section>
+                <div class="slide-container">
+                    <div class="layout-grid-uneven">
+                        <div>
+                            <img src="assets/ai_collab.png" class="img-modern" alt="AI Collaboration">
+                        </div>
+                        <div>
+                            <h2>T-Shaped + AI = Superpower</h2>
+                            <ul>
+                                <li class="fragment">AI sangat unggul di ranah <strong>Vertikal</strong> (Kalkulasi, *Syntax*, Pencarian solusi teknis dengan instan).</li>
+                                <li class="fragment">Namun AI sama sekali buta di ranah <strong>Horizontal</strong> (Empati *user*, konteks bisnis, dinamika tim, dan politik kantor).</li>
+                                <li class="fragment"><strong>Strategi:</strong> Delegasikan pekerjaan teknis berulang ke AI, bebaskan waktu Anda untuk memperluas kolaborasi.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7 (Sesuai MD): AI Prompting Theory -->
+            <section>
+                <div class="slide-container">
+                    <h2>Anatomi AI: Garbage In, Garbage Out</h2>
+                    <div class="layout-grid">
+                        <div>
+                            <p>Mengapa AI terkadang berhalusinasi atau memberikan *code* yang salah?</p>
+                            <ul>
+                                <li class="fragment">AI <strong>bukan</strong> Google Search. AI butuh kepadatan <strong>Context Window</strong>.</li>
+                                <li class="fragment">Jika *prompt* Anda terlalu singkat, memori konteks AI kosong, sehingga ia menebak probabilitas secara acak.</li>
+                                <li class="fragment"><strong>Prinsip:</strong> Kualitas dan akurasi *output* AI berbanding lurus dengan kelengkapan *parameter* yang Anda berikan.</li>
+                            </ul>
+                        </div>
+                        <div class="fragment" style="text-align: center;">
+                            <div style="font-size: 5rem; line-height: 1; color: var(--secondary);">🗑️ ➔ 🤖 ➔ 💥</div>
+                            <p style="text-align: center; font-weight: 500;">Minim Konteks = Halusinasi</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8 (Sesuai MD): Zero-Shot vs Few-Shot -->
+            <section>
+                <div class="slide-container">
+                    <h2>Teori Prompting: Membatasi AI</h2>
+                    <p>Teknik mengendalikan <em>attention mechanism</em> dari Large Language Models.</p>
+                    
+                    <div class="layout-grid">
+                        <div class="fragment">
+                            <h3 style="color: var(--secondary) !important;">1. Zero-Shot Prompting</h3>
+                            <p style="font-size: 1rem !important;">Memberi instruksi tanpa contoh. Tingkat halusinasi tinggi untuk *task* logis.</p>
+                            <div class="prompt-box prompt-bad">
+                                "Buatkan fungsi Regex untuk memvalidasi nomor telepon."<br>
+                                <span style="color: var(--secondary); font-size: 0.8rem;">(Hasil: Format USA/acak).</span>
+                            </div>
+                        </div>
+                        <div class="fragment">
+                            <h3 style="color: var(--primary) !important;">2. Few-Shot Prompting</h3>
+                            <p style="font-size: 1rem !important;">Instruksi + Contoh Pola (Input-Output). Akurasi meningkat drastis.</p>
+                            <div class="prompt-box prompt-good">
+                                "Validasi nomor telepon Indonesia.<br>
+                                Contoh 1: Input '0812' -> Valid.<br>
+                                Contoh 2: Input '+123' -> Invalid.<br>
+                                Sekarang buatkan fungsi Regex-nya."
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9 (Sesuai MD): Framework CREATE -->
+            <section>
+                <div class="slide-container">
+                    <h2>Framework C.R.E.A.T.E</h2>
+                    <p>Panduan bagi *Developer* agar AI tidak berhalusinasi.</p>
+                    
+                    <div class="create-grid fragment">
+                        <div class="create-item">
+                            <h3>C <span>Context</span></h3>
+                            <p>"Saya *Data Engineer* di proyek migrasi DB."</p>
+                        </div>
+                        <div class="create-item">
+                            <h3>R <span>Role</span></h3>
+                            <p>"Bertindaklah sebagai Senior DB Administrator."</p>
+                        </div>
+                        <div class="create-item">
+                            <h3>E <span>Expectation</span></h3>
+                            <p>"Saya ingin merancang skema relasional tabel."</p>
+                        </div>
+                        <div class="create-item">
+                            <h3>A <span>Action</span></h3>
+                            <p>"Buatkan query DDL beserta *index optimization*."</p>
+                        </div>
+                        <div class="create-item">
+                            <h3>T <span>Tech Stack / Tone</span></h3>
+                            <p>"Gunakan PostgreSQL versi terbaru."</p>
+                        </div>
+                        <div class="create-item">
+                            <h3>E <span>Example</span></h3>
+                            <p>"Ini contoh JSON lama kita sebagai referensi: {...}"</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10 (Sesuai MD): Contoh Kasus -->
+            <section>
+                <div class="slide-container">
+                    <h2>Bedah Kasus: Prompting SQL</h2>
+                    
+                    <div class="layout-grid">
+                        <div class="fragment">
+                            <h3 style="color: var(--secondary) !important;">❌ Prompt "Ngawang"</h3>
+                            <div class="prompt-box prompt-bad">
+                                "Bikinin query SQL buat narik data user aktif di bulan ini dong."
+                            </div>
+                            <p style="font-size: 0.95rem !important;"><strong>Fatal:</strong> AI terpaksa menebak nama tabel dan definisi "aktif". Pasti terjadi *error* saat kode disalin ke lokal.</p>
+                        </div>
+                        <div class="fragment">
+                            <h3 style="color: var(--primary) !important;">✅ Prompt Profesional</h3>
+                            <div class="prompt-box prompt-good">
+                                "Tabel: trx_users (id: uuid, created_at: timestamp, status: varchar).<br><br>
+                                Buatkan query PostgreSQL untuk total user aktif (status = 'A') di bulan Juni 2026. Prioritaskan optimasi query."
+                            </div>
+                            <p style="font-size: 0.95rem !important;"><strong>Hasil:</strong> Kode siap *production* karena batasan sistem dikunci dengan ketat.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 11 (Sesuai MD): Actionable Framework -->
+            <section>
+                <div class="slide-container">
+                    <h2 style="margin-bottom: 5px;">Action Plan: Mulai Melebar</h2>
+                    <p style="margin-bottom: 10px;">Gunakan *skill* AI Prompting untuk mempelajari "Bahasa Tetangga".</p>
+                    
+                    <table class="table-corporate">
+                        <thead>
+                            <tr>
+                                <th>Role Anda Saat Ini</th>
+                                <th>Coba Tanyakan Ini ke AI Besok</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="fragment">
+                                <td><strong>Fullstack Developer</strong></td>
+                                <td>"Jelaskan konsep dasar Data Pipeline / ETL dengan bahasa yang dimengerti pemula."</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td><strong>Data Scientist / Analyst</strong></td>
+                                <td>"Berikan tutorial 5 menit cara kerja REST API untuk *deploy model* saya ke UI."</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td><strong>Data Engineer</strong></td>
+                                <td>"Apa standar metrik UI/UX yang bagus saat aplikasi sedang me-*load data* dari DB?"</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Slide 12 (Sesuai MD): Outro -->
+            <section>
+                <div class="slide-container" style="align-items: center; justify-content: center; padding-top: 40px;">
+                    <div style="max-width: 800px; text-align: center;">
+                        <h1 style="font-size: 4.5rem !important; color: var(--primary) !important; margin-bottom: 15px;">
+                            Be The Bridge.
+                        </h1>
+                        <p style="font-size: 2rem !important; font-weight: 500 !important; margin-bottom: 40px;">
+                            T-Shaped Developer + AI = <strong>Future Proof</strong>
+                        </p>
+                        
+                        <div>
+                            <p style="font-size: 1.2rem !important; color: var(--text-gray) !important; text-align: center;">
+                                Terima Kasih<br>
+                                <strong>MHD. Anwar</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            transition: 'fade',
+            backgroundTransition: 'none',
+            controls: false,
+            progress: true,
+            center: false,
+            margin: 0,
+            width: 1280,
+            height: 720,
+            display: 'block'
+        });
+    </script>
+</body>
+</html>
