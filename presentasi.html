@@ -235,6 +235,65 @@
         .table-corporate th { background-color: var(--primary); color: white !important; font-weight: 500; padding: 12px 20px; text-align: left; font-size: 1.1rem; }
         .table-corporate td { background-color: #f9f9f9; padding: 15px 20px; border-bottom: 1px solid #eeeeee; font-size: 1.1rem; }
         .table-corporate tr:last-child td { border-bottom: none; }
+
+        /* Action Plan Cards */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .action-card {
+            position: relative;
+            background: #fff;
+            border-radius: 14px;
+            padding: 18px 18px 18px 20px;
+            border: 1px solid #eaeaea;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .action-card::before {
+            content: "";
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 5px;
+            background: var(--primary);
+        }
+        .action-card:hover { transform: translateY(-6px); box-shadow: 0 14px 30px rgba(0,0,0,0.14); }
+        .action-card-head { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .action-icon {
+            flex-shrink: 0;
+            width: 46px; height: 46px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #e6f2fb 0%, #cfe6f7 100%);
+            border-radius: 12px;
+        }
+        .action-role { font-size: 1.05rem !important; font-weight: 700 !important; color: var(--primary) !important; margin: 0 !important; line-height: 1.15 !important; }
+        .action-role span { display: block; font-size: 0.72rem !important; font-weight: 600 !important; color: #999 !important; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+        .action-prompt {
+            display: flex; gap: 8px;
+            background: #f7f9fb;
+            border-radius: 10px;
+            padding: 12px 14px;
+            font-size: 0.9rem !important;
+            line-height: 1.4 !important;
+            color: #444 !important;
+            margin: 0 !important;
+            font-style: italic;
+        }
+        .action-prompt::before { content: "💬"; font-style: normal; }
+        .action-card.card-accent::before { background: var(--secondary); }
+        .action-card.card-accent .action-icon { background: linear-gradient(135deg, #fde3e6 0%, #fbccd1 100%); }
+        .action-card.card-accent .action-role { color: var(--secondary) !important; }
+
+        /* Compact spacing for the Silo slide (6-item list) */
+        .silo-compact h2 { margin-bottom: 6px; }
+        .silo-compact > p { margin-bottom: 10px; }
+        .silo-compact ul li { margin-bottom: 8px; font-size: 1.05rem !important; }
+        .silo-compact .alert-box { margin-top: 12px; padding: 12px 18px; font-size: 1rem !important; }
     </style>
 </head>
 <body>
@@ -272,7 +331,7 @@
                 <div class="slide-container" style="align-items: center; justify-content: center;">
                     <div style="max-width: 900px; text-align: center;">
                         <h1 style="font-size: 3.2rem !important; color: var(--primary) !important; line-height: 1.4 !important;">
-                            "Kalau besok AI bisa menulis semua baris kode pekerjaan Anda...
+                            "Kalau besok AI bisa menulis / melakukan semua rutinitas pekerjaan Anda...
                         </h1>
                         <h2 style="margin-top: 30px; font-size: 2.2rem !important; color: var(--text-dark) !important; text-align: center;">
                             skill apa yang masih membuat Anda berharga?"
@@ -314,7 +373,7 @@
                                 </div>
                             </div>
                             <div class="j-card fragment" data-fragment-index="4">
-                                <img src="assets/mc.png" class="j-card-img" alt="Leadership">
+                                <img src="assets/leader.jpg" class="j-card-img" alt="Leadership">
                                 <div class="j-card-content">
                                     <p class="j-card-phase">PROCESS</p>
                                     <p class="j-card-title">Leadership</p>
@@ -348,13 +407,16 @@
             <section>
                 <div class="slide-container">
                     <div class="layout-grid-uneven">
-                        <div>
+                        <div class="silo-compact">
                             <h2>Tantangan Klasik Enterprise IT</h2>
                             <p>Fenomena <strong>"The Silo Effect"</strong> di tim besar:</p>
                             <ul>
-                                <li class="fragment"><strong>Data Engineer:</strong> Fokus optimasi *pipeline*.</li>
-                                <li class="fragment"><strong>Data Scientist:</strong> Fokus akurasi model ML.</li>
                                 <li class="fragment"><strong>Fullstack Dev:</strong> Fokus UI/API *performance*.</li>
+                                <li class="fragment"><strong>UI/UX Designer:</strong> Fokus estetika & *user experience*.</li>
+                                <li class="fragment"><strong>Data Scientist:</strong> Fokus akurasi model ML.</li>
+                                <li class="fragment"><strong>Data Analyst:</strong> Fokus *insight* & pelaporan bisnis.</li>
+                                <li class="fragment"><strong>Data Engineer:</strong> Fokus optimasi *pipeline*.</li>
+                                <li class="fragment"><strong>Computer Vision Eng:</strong> Fokus akurasi deteksi *image*.</li>
                             </ul>
                             <div class="alert-box fragment">
                                 Spesialisasi yang terlalu dalam melahirkan <strong>Friction (Gesekan) integrasi</strong>, keterlambatan rilis, dan miskomunikasi bisnis.
@@ -534,30 +596,57 @@
             <section>
                 <div class="slide-container">
                     <h2 style="margin-bottom: 5px;">Action Plan: Mulai Melebar</h2>
-                    <p style="margin-bottom: 10px;">Gunakan *skill* AI Prompting untuk mempelajari "Bahasa Tetangga".</p>
-                    
-                    <table class="table-corporate">
-                        <thead>
-                            <tr>
-                                <th>Role Anda Saat Ini</th>
-                                <th>Coba Tanyakan Ini ke AI Besok</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="fragment">
-                                <td><strong>Fullstack Developer</strong></td>
-                                <td>"Jelaskan konsep dasar Data Pipeline / ETL dengan bahasa yang dimengerti pemula."</td>
-                            </tr>
-                            <tr class="fragment">
-                                <td><strong>Data Scientist / Analyst</strong></td>
-                                <td>"Berikan tutorial 5 menit cara kerja REST API untuk *deploy model* saya ke UI."</td>
-                            </tr>
-                            <tr class="fragment">
-                                <td><strong>Data Engineer</strong></td>
-                                <td>"Apa standar metrik UI/UX yang bagus saat aplikasi sedang me-*load data* dari DB?"</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <p style="margin-bottom: 10px;">Gunakan <em>skill</em> AI Prompting untuk mempelajari <strong>"Bahasa Tetangga"</strong>. Mulai dari role Anda hari ini &rarr; tanyakan ini ke AI besok.</p>
+
+                    <div class="action-grid">
+                        <div class="action-card fragment">
+                            <div class="action-card-head">
+                                <div class="action-icon">🖥️</div>
+                                <p class="action-role">Fullstack Developer<span>Role Anda</span></p>
+                            </div>
+                            <p class="action-prompt">"Jelaskan konsep dasar Data Pipeline / ETL dengan bahasa yang dimengerti pemula."</p>
+                        </div>
+
+                        <div class="action-card fragment">
+                            <div class="action-card-head">
+                                <div class="action-icon">🎨</div>
+                                <p class="action-role">UI/UX Designer<span>Role Anda</span></p>
+                            </div>
+                            <p class="action-prompt">"Jelaskan cara kerja REST API &amp; struktur database agar desain saya realistis secara teknis."</p>
+                        </div>
+
+                        <div class="action-card fragment">
+                            <div class="action-card-head">
+                                <div class="action-icon">🧠</div>
+                                <p class="action-role">Data Scientist<span>Role Anda</span></p>
+                            </div>
+                            <p class="action-prompt">"Ajari saya dasar frontend &amp; REST API agar bisa membuat demo aplikasi dari model saya sendiri."</p>
+                        </div>
+
+                        <div class="action-card fragment">
+                            <div class="action-card-head">
+                                <div class="action-icon">📊</div>
+                                <p class="action-role">Data Analyst<span>Role Anda</span></p>
+                            </div>
+                            <p class="action-prompt">"Jelaskan dasar Machine Learning &amp; Python agar insight saya bisa berkembang jadi model prediktif."</p>
+                        </div>
+
+                        <div class="action-card fragment">
+                            <div class="action-card-head">
+                                <div class="action-icon">🛠️</div>
+                                <p class="action-role">Data Engineer<span>Role Anda</span></p>
+                            </div>
+                            <p class="action-prompt">"Apa standar metrik UI/UX yang bagus saat aplikasi sedang me-load data dari DB?"</p>
+                        </div>
+
+                        <div class="action-card fragment card-accent">
+                            <div class="action-card-head">
+                                <div class="action-icon">👁️</div>
+                                <p class="action-role">Computer Vision Eng<span>Role Anda</span></p>
+                            </div>
+                            <p class="action-prompt">"Bagaimana membungkus model deteksi image saya jadi API ringan untuk aplikasi web?"</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
